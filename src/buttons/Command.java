@@ -12,12 +12,8 @@ import calc.Calc;
 
 public abstract class Command extends JButton
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-	@SuppressWarnings("unused")
 	protected Calc calc;
 
 	public Command(Calc calc, String text, int width, int height)
@@ -27,8 +23,6 @@ public abstract class Command extends JButton
 
 		final Border border = BorderFactory.createLineBorder(Color.black);
 		setBorder(border);
-		addActionListener(new ActionListenerCalc(this));
-		addMouseListener(new MouseListenerCalc(this));
 
 		setPreferredSize(new Dimension(width, height));
 
@@ -36,9 +30,16 @@ public abstract class Command extends JButton
 		setFont(new Font("Consolas", Font.BOLD | Font.ITALIC, (int) (Math.min(width, height) / 2)));
 		setBackground(new Color(200, 200, 200));
 
+		addActionListener(new ActionListenerCalc(this));
+		addMouseListener(new MouseListenerCalc(this));
 		setVisible(true);
 	}
 
 	public abstract void execute();
+
+	public Calc getCalc()
+	{
+		return calc;
+	}
 
 }
