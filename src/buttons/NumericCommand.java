@@ -1,5 +1,7 @@
 package buttons;
 
+import java.awt.Color;
+
 import calc.Calc;
 
 public class NumericCommand extends Command
@@ -12,6 +14,7 @@ public class NumericCommand extends Command
 	{
 		super(calc, text, width, height);
 		this.value = value;
+		setBackground(new Color(220, 220, 220));
 	}
 
 	@Override

@@ -27,12 +27,14 @@ public abstract class Command extends JButton
 
 		final Border border = BorderFactory.createLineBorder(Color.black);
 		setBorder(border);
-		addActionListener(new ActionListennerCalc(this));
+		addActionListener(new ActionListenerCalc(this));
+		addMouseListener(new MouseListenerCalc(this));
 
 		setPreferredSize(new Dimension(width, height));
 
 		setText(new String(text));
 		setFont(new Font("Consolas", Font.BOLD | Font.ITALIC, (int) (Math.min(width, height) / 2)));
+		setBackground(new Color(200, 200, 200));
 
 		setVisible(true);
 	}
