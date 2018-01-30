@@ -20,6 +20,7 @@ public class NumericCommand extends Command
 	@Override
 	public void execute()
 	{
+		System.out.print(value);
 		calc.nextDigit(value);
 	}
 
