@@ -27,6 +27,11 @@ public class Calc extends JFrame
 
 	private final int BUTTON_SIZE = 100 + 41 * 0;
 
+	private JTextField display;
+
+	private double	mem;
+	private boolean	isDecimal;
+
 	public static void main(String... args)
 	{
 		new Calc();
@@ -37,7 +42,6 @@ public class Calc extends JFrame
 
 		super();
 
-		//setSize(640, 360);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("TP DEMINEUR");
 		setResizable(false);
@@ -47,7 +51,7 @@ public class Calc extends JFrame
 
 		final Border border = BorderFactory.createLineBorder(Color.black);
 
-		JTextField display = new JTextField();
+		display = new JTextField();
 		display.setPreferredSize(new Dimension(BUTTON_SIZE, BUTTON_SIZE));
 		add(display, BorderLayout.PAGE_START);
 		display.setText("Hi there");
@@ -93,6 +97,13 @@ public class Calc extends JFrame
 		setVisible(true);
 	}
 
+	public void nextDigit(int d)
+	{
+		mem = mem * 10 + d;
+		display.setText(Double.toString(mem));
+		repaint();
+	}
+
 	/*  Layout
 	 * 
 	 *	+-----------------------+
@@ -102,19 +113,19 @@ public class Calc extends JFrame
 	 *	| +-------------------+ |
 	 *	|                       |
 	 *	| +-+ +-+ +-+   +-+ +-+ |
-	 *	| |7| |8| |9|   | | | | |
+	 *	| |7| |8| |9|   |C| |<| |
 	 *	| +-+ +-+ +-+   +-+ +-+ |
 	 *	|                       |
 	 *	| +-+ +-+ +-+   +-+ +-+ |
-	 *	| |4| |5| |6|   | | | | |
+	 *	| |4| |5| |6|   |+| |-| |
 	 *	| +-+ +-+ +-+   +-+ +-+ |
 	 *	|                       |
 	 *	| +-+ +-+ +-+   +-+ +-+ |
-	 *	| |1| |2| |3|   | | | | |
+	 *	| |1| |2| |3|   |*| |/| |
 	 *	| +-+ +-+ +-+   +-+ +-+ |
 	 *	|                       |
 	 *	| +-+ +-+ +-+   +-+ +-+ |
-	 *	| |0| |.| |=|   | | | | |
+	 *	| |0| |.| |=|   |²| |V| |
 	 *	| +-+ +-+ +-+   +-+ +-+ |
 	 *	|                       |
 	 *	+-----------------------+

@@ -18,7 +18,7 @@ public abstract class Command extends JButton
 	private static final long serialVersionUID = 1L;
 
 	@SuppressWarnings("unused")
-	private Calc calc;
+	protected Calc calc;
 
 	public Command(Calc calc, String text, int width, int height)
 	{
@@ -27,7 +27,7 @@ public abstract class Command extends JButton
 
 		final Border border = BorderFactory.createLineBorder(Color.black);
 		setBorder(border);
-		addActionListener(new ActionListennerCalc());
+		addActionListener(new ActionListennerCalc(this));
 
 		setPreferredSize(new Dimension(width, height));
 

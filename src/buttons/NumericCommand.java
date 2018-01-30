@@ -17,7 +17,7 @@ public class NumericCommand extends Command
 	@Override
 	public void execute()
 	{
-		value = value + 0;
+		calc.nextDigit(value);
 	}
 
 }
