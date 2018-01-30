@@ -13,24 +13,22 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
-import buttons.NumericCommand;
-import buttons.signs.DecimalSignCommand;
-import buttons.signs.EqualSignCommand;
+import buttons.AButtonOperation;
+import buttons.DigitButton;
+import buttons.signs.*;
 
 public class Calc extends JFrame
 {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-	private final int BUTTON_SIZE = 100 + 41 * 0;
+	private final int BUTTON_SIZE = 128;
 
 	private JTextField display;
 
 	private double	mem;
-	private boolean	isDecimal;
+	private double	buff;
+
+	private AButtonOperation operation;
 
 	public static void main(String... args)
 	{
@@ -39,96 +37,134 @@ public class Calc extends JFrame
 
 	Calc()
 	{
-
 		super();
 
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setTitle("TP DEMINEUR");
-		setResizable(false);
-		setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setTitle("TP DEMINEUR");
+		this.setResizable(false);
+		this.setLocationRelativeTo(null);
 
-		setLayout(new BorderLayout());
+		this.setLayout(new BorderLayout());
 
 		final Border border = BorderFactory.createLineBorder(Color.black);
 
-		display = new JTextField();
-		display.setPreferredSize(new Dimension(BUTTON_SIZE, BUTTON_SIZE));
-		add(display, BorderLayout.PAGE_START);
-		display.setText("Hi there");
-		display.setBorder(border);
-		display.setFont(new Font("Consolas", Font.BOLD, (int) (BUTTON_SIZE / 2)));
-		display.setVisible(true);
+		this.display = new JTextField();
+		this.display.setPreferredSize(new Dimension(this.BUTTON_SIZE, this.BUTTON_SIZE));
+		this.add(this.display, BorderLayout.PAGE_START);
+		this.display.setText("Hi there");
+		this.display.setBorder(border);
+		this.display.setFont(new Font("Consolas", Font.BOLD, this.BUTTON_SIZE / 2));
+		this.display.setVisible(true);
 
 		JPanel paveNumerique = new JPanel();
 		paveNumerique.setLayout(new GridLayout(4, 3));
-		add(paveNumerique, BorderLayout.LINE_START);
+		this.add(paveNumerique, BorderLayout.LINE_START);
 		paveNumerique.setVisible(true);
 
 		JPanel paveOperation = new JPanel();
 		paveOperation.setLayout(new GridLayout(4, 2));
-		add(paveOperation, BorderLayout.LINE_END);
+		this.add(paveOperation, BorderLayout.LINE_END);
 		paveOperation.setVisible(true);
 
 		JLabel spacer = new JLabel();
 		JPanel paveCentral = new JPanel();
-		add(paveCentral, BorderLayout.CENTER);
+		this.add(paveCentral, BorderLayout.CENTER);
 		paveCentral.add("there's a spaceman....", spacer);
 		paveCentral.setVisible(true);
 
 		int[] buttonOrder = new int[] {7, 8, 9, 4, 5, 6, 1, 2, 3, 0 };
 		for (int b: buttonOrder)
 		{
-			paveNumerique.add("button_" + b, new NumericCommand(this, Integer.toString(b), b, BUTTON_SIZE, BUTTON_SIZE));
+			paveNumerique.add("button_" + b, new DigitButton(this, Integer.toString(b), this.BUTTON_SIZE, this.BUTTON_SIZE, b));
 		}
 
-		paveNumerique.add("button_decimal_sign", new DecimalSignCommand(this, ".", BUTTON_SIZE, BUTTON_SIZE));
-		paveNumerique.add("button_equal", new EqualSignCommand(this, "=", BUTTON_SIZE, BUTTON_SIZE));
+		paveNumerique.add("button_decimal_sign", new DecimalButton(this, ".", this.BUTTON_SIZE, this.BUTTON_SIZE));
+		paveNumerique.add("button_equal", new EqualButton(this, "=", this.BUTTON_SIZE, this.BUTTON_SIZE));
 
-		paveOperation.add("button_clear______", new EqualSignCommand(this, "C", BUTTON_SIZE, BUTTON_SIZE));
-		paveOperation.add("button_backspace__", new EqualSignCommand(this, new String(Character.toChars(8592)), BUTTON_SIZE, BUTTON_SIZE));
-		paveOperation.add("button_add________", new EqualSignCommand(this, "+", BUTTON_SIZE, BUTTON_SIZE));
-		paveOperation.add("button_substract__", new EqualSignCommand(this, "-", BUTTON_SIZE, BUTTON_SIZE));
-		paveOperation.add("button_multiply___", new EqualSignCommand(this, "x", BUTTON_SIZE, BUTTON_SIZE));
-		paveOperation.add("button_divide_____", new EqualSignCommand(this, "/", BUTTON_SIZE, BUTTON_SIZE));
-		paveOperation.add("button_square_____", new EqualSignCommand(this, "²", BUTTON_SIZE, BUTTON_SIZE));
-		paveOperation.add("button_square_root", new EqualSignCommand(this, new String(Character.toChars(8730)), BUTTON_SIZE, BUTTON_SIZE));
+		String sqr = new String(Character.toChars(8730));
+		String bck = new String(Character.toChars(8592));
+		paveOperation.add("button_clear"/*_______*/, new ClearButton(/*__________*/this, "C", this.BUTTON_SIZE, this.BUTTON_SIZE));
+		paveOperation.add("button_backspace"/*___*/, new BackspaceButton(/*______*/this, bck, this.BUTTON_SIZE, this.BUTTON_SIZE));
+		paveOperation.add("button_add"/*_________*/, new AdditionButton(/*_______*/this, "+", this.BUTTON_SIZE, this.BUTTON_SIZE));
+		paveOperation.add("button_substract"/*___*/, new SubstractionButton(/*___*/this, "-", this.BUTTON_SIZE, this.BUTTON_SIZE));
+		paveOperation.add("button_multiply"/*____*/, new MultiplicationButton(/*_*/this, "x", this.BUTTON_SIZE, this.BUTTON_SIZE));
+		paveOperation.add("button_divide"/*______*/, new DivisionButton(/*_______*/this, "/", this.BUTTON_SIZE, this.BUTTON_SIZE));
+		paveOperation.add("button_square"/*______*/, new SquareButton(/*_________*/this, "²", this.BUTTON_SIZE, this.BUTTON_SIZE));
+		paveOperation.add("button_square_root"/*_*/, new SquareButton(/*_________*/this, sqr, this.BUTTON_SIZE, this.BUTTON_SIZE));
 
-		pack();
-		setVisible(true);
+		this.pack();
+		this.setVisible(true);
 	}
 
-	public void nextDigit(int d)
+	public void setDigit(int d)
 	{
-		mem = mem * 10 + d;
-		display.setText(Double.toString(mem));
-		repaint();
+		this.mem = (this.mem * 10) + d;
+		this.updateDisplay();
+	}
+
+	private void updateDisplay()
+	{
+		String displayedValue;
+		displayedValue = Double.toString(this.mem);
+		this.display.setText(displayedValue);
+		this.repaint();
+	}
+
+	public void setOperation(AButtonOperation button)
+	{
+		this.operation = button;
+	}
+
+	public void doOperation()
+	{
+		this.mem = this.operation.operation();
+	}
+
+	public double getMemory()
+	{
+		return this.mem;
+	}
+
+	public double getBuffer()
+	{
+		return this.buff;
+	}
+
+	public void swapMemory()
+	{
+		this.buff = this.mem;
+		this.mem = 0;
 	}
 
 	/*  Layout
-	 * 
-	 *	+-----------------------+
-	 *	|                       |
-	 *	| +-------------------+ |
-	 *	| |AFFICHAGE          | |
-	 *	| +-------------------+ |
-	 *	|                       |
-	 *	| +-+ +-+ +-+   +-+ +-+ |
-	 *	| |7| |8| |9|   |C| |<| |
-	 *	| +-+ +-+ +-+   +-+ +-+ |
-	 *	|                       |
-	 *	| +-+ +-+ +-+   +-+ +-+ |
-	 *	| |4| |5| |6|   |+| |-| |
-	 *	| +-+ +-+ +-+   +-+ +-+ |
-	 *	|                       |
-	 *	| +-+ +-+ +-+   +-+ +-+ |
-	 *	| |1| |2| |3|   |*| |/| |
-	 *	| +-+ +-+ +-+   +-+ +-+ |
-	 *	|                       |
-	 *	| +-+ +-+ +-+   +-+ +-+ |
-	 *	| |0| |.| |=|   |²| |V| |
-	 *	| +-+ +-+ +-+   +-+ +-+ |
-	 *	|                       |
-	 *	+-----------------------+
+	 *
+	 *	+------------------------------+
+	 *	|                              |
+	 *	| +--------------------------+ |
+	 *	| |AFFICHAGE                 | |
+	 *	| +--------------------------+ |
+	 *	|                              |
+	 *	| +-------------+  +---------+ |
+	 *	| |             |  |         | |
+	 *	| | +-+ +-+ +-+ |  | +-+ +-+ | |
+	 *	| | |7| |8| |9| |  | |C| |<| | |
+	 *	| | +-+ +-+ +-+ |  | +-+ +-+ | |
+	 *	| |             |  |         | |
+	 *	| | +-+ +-+ +-+ |  | +-+ +-+ | |
+	 *	| | |4| |5| |6| |  | |+| |-| | |
+	 *	| | +-+ +-+ +-+ |  | +-+ +-+ | |
+	 *	| |             |  |         | |
+	 *	| | +-+ +-+ +-+ |  | +-+ +-+ | |
+	 *	| | |1| |2| |3| |  | |*| |/| | |
+	 *	| | +-+ +-+ +-+ |  | +-+ +-+ | |
+	 *	| |             |  |         | |
+	 *	| | +-+ +-+ +-+ |  | +-+ +-+ | |
+	 *	| | |0| |.| |=| |  | |²| |V| | |
+	 *	| | +-+ +-+ +-+ |  | +-+ +-+ | |
+	 *	| |             |  |         | |
+	 *	| +-------------+  +---------+ |
+	 *	|                              |
+	 *	+------------------------------+
 	 *
 	 */
 }
