@@ -1,12 +1,17 @@
 package calc;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 
 import buttons.NumericCommand;
 import buttons.signs.DecimalSignCommand;
@@ -40,11 +45,15 @@ public class Calc extends JFrame
 
 		setLayout(new BorderLayout());
 
-		JTextField affichage = new JTextField();
-		//JLabel affichage = new JLabel();
-		add(affichage, BorderLayout.PAGE_START);
-		affichage.setText("Hi there");
-		affichage.setVisible(true);
+		final Border border = BorderFactory.createLineBorder(Color.black);
+
+		JTextField display = new JTextField();
+		display.setPreferredSize(new Dimension(BUTTON_SIZE, BUTTON_SIZE));
+		add(display, BorderLayout.PAGE_START);
+		display.setText("Hi there");
+		display.setBorder(border);
+		display.setFont(new Font("Consolas", Font.BOLD, (int) (BUTTON_SIZE / 2)));
+		display.setVisible(true);
 
 		JPanel paveNumerique = new JPanel();
 		paveNumerique.setLayout(new GridLayout(4, 3));

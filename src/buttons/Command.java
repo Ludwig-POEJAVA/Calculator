@@ -2,6 +2,7 @@ package buttons;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -31,6 +32,7 @@ public abstract class Command extends JButton
 		setPreferredSize(new Dimension(width, height));
 
 		setText(new String(text));
+		setFont(new Font("Consolas", Font.BOLD | Font.ITALIC, (int) (Math.min(width, height) / 2)));
 
 		setVisible(true);
 	}
