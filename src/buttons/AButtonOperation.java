@@ -11,5 +11,11 @@ public abstract class AButtonOperation extends AButton
 		super(calc, text, width, height);
 	}
 
+	@Override
+	protected void execute()
+	{
+		this.calc.setOperation(this);
+	}
+
 	public abstract double operation();
 }

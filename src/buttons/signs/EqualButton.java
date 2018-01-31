@@ -17,8 +17,8 @@ public class EqualButton extends AButton
 	{
 		if (this.calc.getOperation() != null)
 		{
-			System.out.print("=");
-			this.calc.doOperation();
+			this.calc.setMemory(this.calc.getOperation().operation());
+			this.calc.updateDisplay(this.calc.getMemory());
 		}
 	}
 }

@@ -31,6 +31,19 @@ public class Calc extends JFrame
 
 	private AButtonOperation operation;
 
+	DecimalButton	decimalButton;
+	EqualButton		equalButton;
+	DigitButton[]	digits;
+
+	ClearButton				clearButton;
+	BackspaceButton			backspaceButton;
+	AdditionButton			additionButton;
+	SubstractionButton		substractionButton;
+	MultiplicationButton	multiplicationButton;
+	DivisionButton			divisionButton;
+	SquareButton			squareButton;
+	SquareRootButton		squareRootButton;
+
 	public static void main(String... args)
 	{
 		new Calc();
@@ -52,7 +65,7 @@ public class Calc extends JFrame
 		this.display = new JTextField();
 		this.display.setPreferredSize(new Dimension(this.BUTTON_SIZE, this.BUTTON_SIZE));
 		this.add(this.display, BorderLayout.PAGE_START);
-		this.display.setText("Hi there");
+		this.display.setText("-0");
 		this.display.setBorder(border);
 		this.display.setFont(new Font("Consolas", Font.BOLD, this.BUTTON_SIZE / 2));
 		this.display.setHorizontalAlignment(JTextField.RIGHT);
@@ -75,24 +88,41 @@ public class Calc extends JFrame
 		paveCentral.setVisible(true);
 
 		int[] buttonOrder = new int[] {7, 8, 9, 4, 5, 6, 1, 2, 3, 0 };
-		for (int b: buttonOrder)
+		this.digits = new DigitButton[10];
+		for (int i = 0; i < buttonOrder.length; i++ )
 		{
-			paveNumerique.add("button_" + b, new DigitButton(this, Integer.toString(b), this.BUTTON_SIZE, this.BUTTON_SIZE, b));
+			int val = buttonOrder[i];
+			DigitButton digitButton = new DigitButton(this, Integer.toString(val), this.BUTTON_SIZE, this.BUTTON_SIZE, val);
+			this.digits[buttonOrder[val]] = digitButton;
+			paveNumerique.add("button_" + val, digitButton);
 		}
-
-		paveNumerique.add("button_decimal_sign", new DecimalButton(this, ".", this.BUTTON_SIZE, this.BUTTON_SIZE));
-		paveNumerique.add("button_equal", new EqualButton(this, "=", this.BUTTON_SIZE, this.BUTTON_SIZE));
 
 		String sqr = new String(Character.toChars(8730));
 		String bck = new String(Character.toChars(8592));
-		paveOperation.add("button_clear"/*_______*/, new ClearButton(/*__________*/this, "C", this.BUTTON_SIZE, this.BUTTON_SIZE));
-		paveOperation.add("button_backspace"/*___*/, new BackspaceButton(/*______*/this, bck, this.BUTTON_SIZE, this.BUTTON_SIZE));
-		paveOperation.add("button_add"/*_________*/, new AdditionButton(/*_______*/this, "+", this.BUTTON_SIZE, this.BUTTON_SIZE));
-		paveOperation.add("button_substract"/*___*/, new SubstractionButton(/*___*/this, "-", this.BUTTON_SIZE, this.BUTTON_SIZE));
-		paveOperation.add("button_multiply"/*____*/, new MultiplicationButton(/*_*/this, "x", this.BUTTON_SIZE, this.BUTTON_SIZE));
-		paveOperation.add("button_divide"/*______*/, new DivisionButton(/*_______*/this, "/", this.BUTTON_SIZE, this.BUTTON_SIZE));
-		paveOperation.add("button_square"/*______*/, new SquareButton(/*_________*/this, "²", this.BUTTON_SIZE, this.BUTTON_SIZE));
-		paveOperation.add("button_square_root"/*_*/, new SquareButton(/*_________*/this, sqr, this.BUTTON_SIZE, this.BUTTON_SIZE));
+
+		this.decimalButton /*________*/ = new DecimalButton(this, ".", this.BUTTON_SIZE, this.BUTTON_SIZE);
+		this.equalButton /*__________*/ = new EqualButton(this, "=", this.BUTTON_SIZE, this.BUTTON_SIZE);
+
+		this.clearButton /*__________*/ = new ClearButton(/*__________*/this, "C", this.BUTTON_SIZE, this.BUTTON_SIZE);
+		this.backspaceButton /*______*/ = new BackspaceButton(/*______*/this, bck, this.BUTTON_SIZE, this.BUTTON_SIZE);
+		this.additionButton/*________*/ = new AdditionButton(/*_______*/this, "+", this.BUTTON_SIZE, this.BUTTON_SIZE);
+		this.substractionButton/*____*/ = new SubstractionButton(/*___*/this, "-", this.BUTTON_SIZE, this.BUTTON_SIZE);
+		this.multiplicationButton /*_*/ = new MultiplicationButton(/*_*/this, "x", this.BUTTON_SIZE, this.BUTTON_SIZE);
+		this.divisionButton /*_______*/ = new DivisionButton(/*_______*/this, "/", this.BUTTON_SIZE, this.BUTTON_SIZE);
+		this.squareButton /*_________*/ = new SquareButton(/*_________*/this, "²", this.BUTTON_SIZE, this.BUTTON_SIZE);
+		this.squareRootButton /*_____*/ = new SquareRootButton(/*_____*/this, sqr, this.BUTTON_SIZE, this.BUTTON_SIZE);
+
+		paveNumerique.add("button_decimal"/*______*/, this.decimalButton);
+		paveNumerique.add("button_equal"/*________*/, this.equalButton);
+
+		paveOperation.add("button_clear"/*________*/, this.clearButton);
+		paveOperation.add("button_backspace"/*____*/, this.backspaceButton);
+		paveOperation.add("button_add"/*__________*/, this.additionButton);
+		paveOperation.add("button_substract"/*____*/, this.substractionButton);
+		paveOperation.add("button_multiply"/*_____*/, this.multiplicationButton);
+		paveOperation.add("button_divide"/*_______*/, this.divisionButton);
+		paveOperation.add("button_square"/*_______*/, this.squareButton);
+		paveOperation.add("button_square_root"/*__*/, this.squareRootButton);
 
 		this.pack();
 		this.setVisible(true);
@@ -114,19 +144,9 @@ public class Calc extends JFrame
 
 	public void setOperation(AButtonOperation button)
 	{
-		this.doOperation();
+		this.equalButton.execute();
 		this.operation = button;
 		this.swapMemory();
-	}
-
-	public void doOperation()
-	{
-		if (this.operation != null)
-		{
-			this.mem = this.operation.operation();
-			this.updateDisplay(this.mem);
-			System.out.print(this.mem);
-		}
 	}
 
 	public double getMemory()
@@ -160,6 +180,7 @@ public class Calc extends JFrame
 		return this.operation;
 	}
 
+	@SuppressWarnings("unused")
 	private void myLayoutIsAwesomeAndSexy()
 	{
 		/*  Layout

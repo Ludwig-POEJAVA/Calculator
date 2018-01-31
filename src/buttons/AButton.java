@@ -42,4 +42,10 @@ public abstract class AButton extends JButton
 		return this.calc;
 	}
 
+	@Override
+	public String toString()
+	{
+		return this.getText();
+	}
+
 }

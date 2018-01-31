@@ -15,5 +15,6 @@ public class SquareButton extends AButton
 	@Override
 	public void execute()
 	{
+
 	}
 }

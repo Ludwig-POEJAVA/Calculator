@@ -18,7 +18,5 @@ public class ClearButton extends AButton
 		this.calc.setMemory(0.0);
 		this.calc.setBuffer(0.0);
 		this.calc.updateDisplay(0.0);
-		System.out.println();
-		System.out.println("CLEAR");
 	}
 }
