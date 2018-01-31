@@ -37,11 +37,6 @@ public abstract class AButton extends JButton
 
 	protected abstract void execute();
 
-	public Calc getCalc()
-	{
-		return this.calc;
-	}
-
 	@Override
 	public String toString()
 	{

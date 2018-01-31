@@ -13,8 +13,8 @@ public class SubstractionButton extends AButtonOperation
 	}
 
 	@Override
-	public double operation()
+	public double operate()
 	{
-		return this.calc.getMemory() - this.calc.getBuffer();
+		return this.calc.getMemory() - this.calc.getTyping();
 	}
 }

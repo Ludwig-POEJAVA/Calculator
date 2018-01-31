@@ -17,5 +17,5 @@ public abstract class AButtonOperation extends AButton
 		this.calc.setOperation(this);
 	}
 
-	public abstract double operation();
+	public abstract double operate();
 }

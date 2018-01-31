@@ -16,7 +16,8 @@ public class ClearButton extends AButton
 	public void execute()
 	{
 		this.calc.setMemory(0.0);
-		this.calc.setBuffer(0.0);
+		this.calc.setTyping(0.0);
+		this.calc.setOperation(null);
 		this.calc.updateDisplay(0.0);
 	}
 }

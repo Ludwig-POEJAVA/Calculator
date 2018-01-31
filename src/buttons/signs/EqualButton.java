@@ -15,10 +15,6 @@ public class EqualButton extends AButton
 	@Override
 	public void execute()
 	{
-		if (this.calc.getOperation() != null)
-		{
-			this.calc.setMemory(this.calc.getOperation().operation());
-			this.calc.updateDisplay(this.calc.getMemory());
-		}
+		this.calc.compute();
 	}
 }

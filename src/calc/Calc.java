@@ -26,8 +26,8 @@ public class Calc extends JFrame
 
 	private JTextField display;
 
-	private double	mem;
-	private double	buff;
+	private double	memory;
+	private double	typing;
 
 	private AButtonOperation operation;
 
@@ -130,8 +130,8 @@ public class Calc extends JFrame
 
 	public void setDigit(int d)
 	{
-		this.buff = (this.buff * 10) + d;
-		this.updateDisplay(this.buff);
+		this.typing = (this.typing * 10) + d;
+		this.updateDisplay(this.typing);
 	}
 
 	public void updateDisplay(double value)
@@ -144,40 +144,43 @@ public class Calc extends JFrame
 
 	public void setOperation(AButtonOperation button)
 	{
-		this.equalButton.execute();
 		this.operation = button;
-		this.swapMemory();
+		this.memory = this.typing;
+		this.typing = 0;
 	}
 
 	public double getMemory()
 	{
-		return this.mem;
+		return this.memory;
 	}
 
-	public void setMemory(double mem)
+	public void setMemory(double value)
 	{
-		this.mem = mem;
+		this.memory = value;
 	}
 
-	public double getBuffer()
+	public double getTyping()
 	{
-		return this.buff;
+		return this.typing;
 	}
 
-	public void setBuffer(double buff)
+	public void setTyping(double value)
 	{
-		this.buff = buff;
-	}
-
-	public void swapMemory()
-	{
-		this.mem = this.buff;
-		this.buff = 0;
+		this.typing = value;
 	}
 
 	public AButtonOperation getOperation()
 	{
 		return this.operation;
+	}
+
+	public void compute()
+	{
+		if (this.operation != null)
+		{
+			this.memory = this.operation.operate();
+			this.updateDisplay(this.memory);
+		}
 	}
 
 	@SuppressWarnings("unused")

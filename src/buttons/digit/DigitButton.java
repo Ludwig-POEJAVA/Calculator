@@ -21,7 +21,6 @@ public class DigitButton extends AButton
 	@Override
 	public void execute()
 	{
-		System.out.print(this.value);
 		this.calc.setDigit(this.value);
 	}
 }
