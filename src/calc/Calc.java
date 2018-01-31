@@ -13,8 +13,9 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
-import buttons.AButtonOperation;
-import buttons.DigitButton;
+import buttons.*;
+import buttons.digit.*;
+import buttons.operations.*;
 import buttons.signs.*;
 
 public class Calc extends JFrame
@@ -54,7 +55,7 @@ public class Calc extends JFrame
 		this.display.setText("Hi there");
 		this.display.setBorder(border);
 		this.display.setFont(new Font("Consolas", Font.BOLD, this.BUTTON_SIZE / 2));
-		this.display.setHorizontalAlignment(JTextField.LEFT);
+		this.display.setHorizontalAlignment(JTextField.RIGHT);
 		this.display.setVisible(true);
 
 		JPanel paveNumerique = new JPanel();

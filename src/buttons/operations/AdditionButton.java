@@ -1,4 +1,4 @@
-package buttons.signs;
+package buttons.operations;
 
 import buttons.AButtonOperation;
 import calc.Calc;

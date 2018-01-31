@@ -1,7 +1,8 @@
-package buttons;
+package buttons.digit;
 
 import java.awt.Color;
 
+import buttons.AButton;
 import calc.Calc;
 
 public class DigitButton extends AButton
