@@ -15,5 +15,10 @@ public class ClearButton extends AButton
 	@Override
 	public void execute()
 	{
+		this.calc.setMemory(0.0);
+		this.calc.setBuffer(0.0);
+		this.calc.updateDisplay(0.0);
+		System.out.println();
+		System.out.println("CLEAR");
 	}
 }

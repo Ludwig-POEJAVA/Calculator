@@ -15,13 +15,13 @@ public class DivisionButton extends AButtonOperation
 	@Override
 	protected void execute()
 	{
+		this.calc.setOperation(this);
+		System.out.print("/");
 	}
 
 	@Override
 	public double operation()
 	{
-		return 0;
-		// TODO Auto-generated method stub
-
+		return this.calc.getMemory() / this.calc.getBuffer();
 	}
 }

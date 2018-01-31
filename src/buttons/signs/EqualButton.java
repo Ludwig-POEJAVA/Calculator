@@ -15,7 +15,10 @@ public class EqualButton extends AButton
 	@Override
 	public void execute()
 	{
-		System.out.println("=");
-		this.calc.doOperation();
+		if (this.calc.getOperation() != null)
+		{
+			System.out.print("=");
+			this.calc.doOperation();
+		}
 	}
 }

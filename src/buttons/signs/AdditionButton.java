@@ -16,14 +16,12 @@ public class AdditionButton extends AButtonOperation
 	public void execute()
 	{
 		this.calc.setOperation(this);
-		this.calc.swapMemory();
 		System.out.print("+");
 	}
 
 	@Override
 	public double operation()
 	{
-		System.out.println("addition en cours");
 		return this.calc.getMemory() + this.calc.getBuffer();
 	}
 }

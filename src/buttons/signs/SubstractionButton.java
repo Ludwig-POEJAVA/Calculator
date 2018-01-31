@@ -15,11 +15,13 @@ public class SubstractionButton extends AButtonOperation
 	@Override
 	protected void execute()
 	{
+		this.calc.setOperation(this);
+		System.out.print("-");
 	}
 
 	@Override
 	public double operation()
 	{
-		return 0;
+		return this.calc.getMemory() - this.calc.getBuffer();
 	}
 }

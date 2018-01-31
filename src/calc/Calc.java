@@ -103,7 +103,7 @@ public class Calc extends JFrame
 		this.updateDisplay(this.buff);
 	}
 
-	private void updateDisplay(double value)
+	public void updateDisplay(double value)
 	{
 		String displayedValue;
 		displayedValue = Double.toString(value);
@@ -113,13 +113,19 @@ public class Calc extends JFrame
 
 	public void setOperation(AButtonOperation button)
 	{
+		this.doOperation();
 		this.operation = button;
+		this.swapMemory();
 	}
 
 	public void doOperation()
 	{
-		this.mem = this.operation.operation();
-		this.updateDisplay(this.mem);
+		if (this.operation != null)
+		{
+			this.mem = this.operation.operation();
+			this.updateDisplay(this.mem);
+			System.out.print(this.mem);
+		}
 	}
 
 	public double getMemory()
@@ -127,9 +133,19 @@ public class Calc extends JFrame
 		return this.mem;
 	}
 
+	public void setMemory(double mem)
+	{
+		this.mem = mem;
+	}
+
 	public double getBuffer()
 	{
 		return this.buff;
+	}
+
+	public void setBuffer(double buff)
+	{
+		this.buff = buff;
 	}
 
 	public void swapMemory()
@@ -138,35 +154,43 @@ public class Calc extends JFrame
 		this.buff = 0;
 	}
 
-	/*  Layout
-	 *
-	 *	+------------------------------+
-	 *	|                              |
-	 *	| +--------------------------+ |
-	 *	| |AFFICHAGE                 | |
-	 *	| +--------------------------+ |
-	 *	|                              |
-	 *	| +-------------+  +---------+ |
-	 *	| |             |  |         | |
-	 *	| | +-+ +-+ +-+ |  | +-+ +-+ | |
-	 *	| | |7| |8| |9| |  | |C| |<| | |
-	 *	| | +-+ +-+ +-+ |  | +-+ +-+ | |
-	 *	| |             |  |         | |
-	 *	| | +-+ +-+ +-+ |  | +-+ +-+ | |
-	 *	| | |4| |5| |6| |  | |+| |-| | |
-	 *	| | +-+ +-+ +-+ |  | +-+ +-+ | |
-	 *	| |             |  |         | |
-	 *	| | +-+ +-+ +-+ |  | +-+ +-+ | |
-	 *	| | |1| |2| |3| |  | |*| |/| | |
-	 *	| | +-+ +-+ +-+ |  | +-+ +-+ | |
-	 *	| |             |  |         | |
-	 *	| | +-+ +-+ +-+ |  | +-+ +-+ | |
-	 *	| | |0| |.| |=| |  | |²| |V| | |
-	 *	| | +-+ +-+ +-+ |  | +-+ +-+ | |
-	 *	| |             |  |         | |
-	 *	| +-------------+  +---------+ |
-	 *	|                              |
-	 *	+------------------------------+
-	 *
-	 */
+	public AButtonOperation getOperation()
+	{
+		return this.operation;
+	}
+
+	private void myLayoutIsAwesomeAndSexy()
+	{
+		/*  Layout
+		 *
+		 *	+------------------------------+
+		 *	|                              |
+		 *	| +--------------------------+ |
+		 *	| |AFFICHAGE                 | |
+		 *	| +--------------------------+ |
+		 *	|                              |
+		 *	| +-------------+  +---------+ |
+		 *	| |             |  |         | |
+		 *	| | +-+ +-+ +-+ |  | +-+ +-+ | |
+		 *	| | |7| |8| |9| |  | |C| |<| | |
+		 *	| | +-+ +-+ +-+ |  | +-+ +-+ | |
+		 *	| |             |  |         | |
+		 *	| | +-+ +-+ +-+ |  | +-+ +-+ | |
+		 *	| | |4| |5| |6| |  | |+| |-| | |
+		 *	| | +-+ +-+ +-+ |  | +-+ +-+ | |
+		 *	| |             |  |         | |
+		 *	| | +-+ +-+ +-+ |  | +-+ +-+ | |
+		 *	| | |1| |2| |3| |  | |*| |/| | |
+		 *	| | +-+ +-+ +-+ |  | +-+ +-+ | |
+		 *	| |             |  |         | |
+		 *	| | +-+ +-+ +-+ |  | +-+ +-+ | |
+		 *	| | |0| |.| |=| |  | |²| |V| | |
+		 *	| | +-+ +-+ +-+ |  | +-+ +-+ | |
+		 *	| |             |  |         | |
+		 *	| +-------------+  +---------+ |
+		 *	|                              |
+		 *	+------------------------------+
+		 *
+		 */
+	}
 }
