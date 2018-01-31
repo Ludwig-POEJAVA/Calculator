@@ -19,13 +19,11 @@ public class SquareRootButton extends AButton
 		{
 			this.calc.setMemory(Math.sqrt(this.calc.getMemory()));
 			this.calc.updateDisplay(this.calc.getMemory());
-			System.out.println("phase A");
 		}
 		else
 		{
 			this.calc.setTyping(Math.sqrt(this.calc.getTyping()));
 			this.calc.updateDisplay(this.calc.getTyping());
-			System.out.println("phase B");
 		}
 	}
 }

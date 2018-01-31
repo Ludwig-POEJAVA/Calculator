@@ -148,10 +148,17 @@ public class Calc extends JFrame
 		}
 		*/
 		String displayedValue;
-		displayedValue = Double.toString(value);
-		this.display.setText(displayedValue);
+		if ((value > Long.MIN_VALUE) && (value < Long.MAX_VALUE) && ((long) value == value))
+		{
+			displayedValue = Long.toString((long) value);
+			this.display.setText(displayedValue);
+		}
+		else
+		{
+			displayedValue = Double.toString(value);
+			this.display.setText(displayedValue);
+		}
 		this.repaint();
-
 	}
 
 	public void setOperation(AButtonOperation button)
