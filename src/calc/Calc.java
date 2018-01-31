@@ -44,6 +44,8 @@ public class Calc extends JFrame
 	SquareButton			squareButton;
 	SquareRootButton		squareRootButton;
 
+	private boolean isComputationDone;
+
 	public static void main(String... args)
 	{
 		new Calc();
@@ -132,6 +134,7 @@ public class Calc extends JFrame
 	{
 		this.typing = (this.typing * 10) + d;
 		this.updateDisplay(this.typing);
+		this.isComputationDone = false;
 	}
 
 	public void updateDisplay(double value)
@@ -144,9 +147,12 @@ public class Calc extends JFrame
 
 	public void setOperation(AButtonOperation button)
 	{
-		this.operation = button;
-		this.memory = this.typing;
+		if ( !this.isComputationDone)
+		{
+			this.memory = this.typing;
+		}
 		this.typing = 0;
+		this.operation = button;
 	}
 
 	public double getMemory()
@@ -180,6 +186,7 @@ public class Calc extends JFrame
 		{
 			this.memory = this.operation.operate();
 			this.updateDisplay(this.memory);
+			this.isComputationDone = true;
 		}
 	}
 

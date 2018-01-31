@@ -14,6 +14,7 @@ public abstract class AButtonOperation extends AButton
 	@Override
 	protected void execute()
 	{
+		this.calc.compute();
 		this.calc.setOperation(this);
 	}
 
