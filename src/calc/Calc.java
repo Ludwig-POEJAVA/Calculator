@@ -54,6 +54,7 @@ public class Calc extends JFrame
 		this.display.setText("Hi there");
 		this.display.setBorder(border);
 		this.display.setFont(new Font("Consolas", Font.BOLD, this.BUTTON_SIZE / 2));
+		this.display.setHorizontalAlignment(JTextField.LEFT);
 		this.display.setVisible(true);
 
 		JPanel paveNumerique = new JPanel();
@@ -98,14 +99,14 @@ public class Calc extends JFrame
 
 	public void setDigit(int d)
 	{
-		this.mem = (this.mem * 10) + d;
-		this.updateDisplay();
+		this.buff = (this.buff * 10) + d;
+		this.updateDisplay(this.buff);
 	}
 
-	private void updateDisplay()
+	private void updateDisplay(double value)
 	{
 		String displayedValue;
-		displayedValue = Double.toString(this.mem);
+		displayedValue = Double.toString(value);
 		this.display.setText(displayedValue);
 		this.repaint();
 	}
@@ -118,6 +119,7 @@ public class Calc extends JFrame
 	public void doOperation()
 	{
 		this.mem = this.operation.operation();
+		this.updateDisplay(this.mem);
 	}
 
 	public double getMemory()
@@ -132,8 +134,8 @@ public class Calc extends JFrame
 
 	public void swapMemory()
 	{
-		this.buff = this.mem;
-		this.mem = 0;
+		this.mem = this.buff;
+		this.buff = 0;
 	}
 
 	/*  Layout
