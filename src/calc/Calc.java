@@ -139,10 +139,19 @@ public class Calc extends JFrame
 
 	public void updateDisplay(double value)
 	{
+		//Easter egg.
+		/*
+		if ((this.memory == 0) && (this.typing == 0) && (this.operation != null) && this.operation.getText().equals("+"))
+		{
+			this.display.setText("0+0=la tête à Toto");
+			this.repaint();
+		}
+		*/
 		String displayedValue;
 		displayedValue = Double.toString(value);
 		this.display.setText(displayedValue);
 		this.repaint();
+
 	}
 
 	public void setOperation(AButtonOperation button)
@@ -173,6 +182,11 @@ public class Calc extends JFrame
 	public void setTyping(double value)
 	{
 		this.typing = value;
+	}
+
+	public boolean getComputationStatus()
+	{
+		return this.isComputationDone;
 	}
 
 	public AButtonOperation getOperation()

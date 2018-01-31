@@ -15,6 +15,17 @@ public class SquareButton extends AButton
 	@Override
 	public void execute()
 	{
-
+		if (this.calc.getComputationStatus())
+		{
+			this.calc.setMemory(this.calc.getMemory() * this.calc.getMemory());
+			this.calc.updateDisplay(this.calc.getMemory());
+			System.out.println("phase A");
+		}
+		else
+		{
+			this.calc.setTyping(this.calc.getTyping() * this.calc.getTyping());
+			this.calc.updateDisplay(this.calc.getTyping());
+			System.out.println("phase B");
+		}
 	}
 }

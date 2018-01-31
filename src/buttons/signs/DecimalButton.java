@@ -15,6 +15,5 @@ public class DecimalButton extends AButton
 	@Override
 	public void execute()
 	{
-		System.out.print(".");
 	}
 }
